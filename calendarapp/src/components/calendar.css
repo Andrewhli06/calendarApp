@@ -1,0 +1,22 @@
+.calBody {
+    border-radius: 25px;;
+    display: flex;
+    flex-direction: row;
+    min-height: 1000px;
+    width: 100%;
+    border: 8px solid black;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    align-items: start;
+    gap: 5px;
+    padding: 1px;
+}
+
+.calendar {
+    border-radius: 15px 50px 30px;
+    background-color: grey;
+    height: 200px;
+    width: 15%;
+    font-size: 20pt;
+}

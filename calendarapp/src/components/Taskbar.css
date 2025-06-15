@@ -9,6 +9,7 @@
 }
 
 .taskbar {
+    border-radius: 15px 50px 30px 5px;
     background-color: grey;
     height: 100%;
     width: 20%;
