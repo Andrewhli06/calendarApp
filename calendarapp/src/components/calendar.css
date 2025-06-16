@@ -2,7 +2,7 @@
     border-radius: 25px;;
     display: flex;
     flex-direction: row;
-    min-height: 1000px;
+    min-height: 80%;
     width: 100%;
     border: 8px solid black;
     flex-wrap: wrap;
