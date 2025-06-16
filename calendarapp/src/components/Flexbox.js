@@ -2,7 +2,12 @@ import "../components/Taskbar.css";
 import "../components/Calendar.css";
 
 function Taskbar() {
-    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    const date = new Date();
+    const month = date.getMonth(); // 0-11 (0 = January, 11 = December)
+    const year = date.getFullYear();
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the current mont
+
+    const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
     return (
         <div className= "taskBody">
