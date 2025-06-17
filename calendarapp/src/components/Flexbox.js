@@ -29,9 +29,9 @@ function Taskbar() {
     return (
         <div>
             <div className= "taskBody">
-                <div className="whatMonth">{currentMonthName}</div>
                 <div className= "taskbar"></div>
              <div className="calBody">
+                <div className="whatMonth">{currentMonthName}</div>
                 {days.map((day) => (
                     <div key={day} className="calendar">
                         {day}
