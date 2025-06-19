@@ -10,6 +10,7 @@
 
 .calendar {
     border: 1px solid black;
+    border-radius: 15px 50px 30px;
     background-color: grey;
     height: 20%;
     width: 10%;
