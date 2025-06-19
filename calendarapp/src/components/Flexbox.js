@@ -20,7 +20,7 @@ function Taskbar() {
         11: "December"
     }
         
-    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the current mont
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the current month
 
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
