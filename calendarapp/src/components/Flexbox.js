@@ -35,19 +35,32 @@ function Taskbar() {
                     {days.map((day) => (
                         <div key={day} className="calendar">
                             {/* {day} */}
-                            <button>{day}</button>
+                            <button key={day} onClick={() => openPopup(day)}>{day}</button>
                         </div>
 
                     ))}
                     {days.map((day) => (
                         <div class="popup" id={day}>
                             <p>{day}</p>
+                            <button key={day} onClick={() => closePopup(day)}>close</button>
                         </div>
                     ))}
                 </div>
             </div>
         </div>
     )
+}
+
+
+// should refactor these two functions into a clickhandler function due to the fact that they are very similar functions
+function openPopup(id) {
+    let popup = document.getElementById(id);
+    popup.classList.add("open-popup");
+}
+
+function closePopup(id) {
+    let popup = document.getElementById(id);
+    popup.classList.remove("open-popup");
 }
 
 export default Taskbar;

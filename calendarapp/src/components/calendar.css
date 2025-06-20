@@ -43,6 +43,12 @@
     transform: translate(-50%, -50%) scale(1);
 }
 
+.close-popup {
+    visibility: hidden;
+    top: 0%;
+    transform: translate(-50%, -50%) scale(0.1);
+}
+
 .calEvents {
     text-align: center;
     font-size: 1.5rem;
