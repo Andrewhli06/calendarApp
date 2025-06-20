@@ -19,7 +19,7 @@ function Taskbar() {
         10: "November",
         11: "December"
     }
-        
+
     const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the current month
 
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
@@ -28,17 +28,24 @@ function Taskbar() {
 
     return (
         <div>
-            <div className= "taskBody">
-                <div className= "taskbar"></div>
-             <div className="calBody">
-                <div className="whatMonth">{currentMonthName}</div>
-                {days.map((day) => (
-                    <div key={day} className="calendar">
-                        {day}
-                    </div>
-            ))}
-         </div>
-        </div>
+            <div className="taskBody">
+                <div className="taskbar"></div>
+                <div className="calBody">
+                    <div className="whatMonth">{currentMonthName}</div>
+                    {days.map((day) => (
+                        <div key={day} className="calendar">
+                            {/* {day} */}
+                            <button>{day}</button>
+                        </div>
+
+                    ))}
+                    {days.map((day) => (
+                        <div class="popup" id={day}>
+                            <p>{day}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }
