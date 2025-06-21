@@ -1,5 +1,5 @@
 import "../components/Taskbar.css";
-import "../components/Calendar.css";
+import "../components/calendar.css";
 
 function Taskbar() {
     const date = new Date();
