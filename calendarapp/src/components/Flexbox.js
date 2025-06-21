@@ -41,7 +41,7 @@ function Taskbar() {
                     ))}
                     {days.map((day) => (
                         <div class="popup" id={day}>
-                            <p>{day}</p>
+                            <p>To Do List: {currentMonthName}, {day}</p>
                             <button key={day} onClick={() => closePopup(day)}>close</button>
                         </div>
                     ))}
