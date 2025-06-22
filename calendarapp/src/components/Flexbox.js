@@ -47,6 +47,7 @@ function Taskbar() {
     const handleCloseTaskPopup = () => {
         setTaskPopupDay(null);
     };
+
     return (
         <div>
             <div className="taskBody">
@@ -66,6 +67,8 @@ function Taskbar() {
                     {days.map((day) => (
                         <div class="popup" id={day}>
                             <p>To Do List: {dayNames[dayOfWeek]}, {currentMonthName} {day}</p>
+                            {/* Added the add task button in here instead */}
+                            <button onClick={() => handleAddTaskClick(day)}>Add Task</button>
                             <button key={day} onClick={() => closePopup(day)}>close</button>
                         </div>
                     ))}
