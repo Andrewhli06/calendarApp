@@ -17,6 +17,17 @@
     width: 10%;
 }
 
+.calendar.currentDay button {
+  background-color: lightblue;
+  width: 100%;
+  height: 100%;
+  font-size: 20pt;
+}
+
+.calendar.currentDay button:hover {
+  background-color: rgb(25, 106, 226);
+}
+
 .calendar button {
     background-color: grey;
     height: 100%;
@@ -96,4 +107,19 @@
     visibility: hidden;
     top: 0%;
     transform: translate(-50%, -50%) scale(0.1);
+}
+
+.task-preview-container {
+  margin-top: 4px;
+  font-size: 10pt;
+}
+
+.task-preview {
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

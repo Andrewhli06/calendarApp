@@ -37,6 +37,7 @@ const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
 const currentMonthName = monthNames[month];
 
+
 function Taskbar() {
     const [taskPopupDay, setTaskPopupDay] = useState(null);
 
@@ -48,6 +49,16 @@ function Taskbar() {
         setTaskPopupDay(null);
     };
 
+    const [tasks, setTasks] = useState({}); 
+
+    const handleSaveTask = (day, month, year, newTask) => {
+    const dateKey = `${year}-${month + 1}-${day}`;
+    setTasks((prevTasks) => ({
+        ...prevTasks,
+        [dateKey]: [...(prevTasks[dateKey] || []), newTask],
+    }));
+    };
+
     return (
         <div>
             <div className="taskBody">
@@ -57,36 +68,45 @@ function Taskbar() {
                     {currentMonthName}
                     <button type="button" onClick={() => handleAddTaskClick(date.getDate())}>Add A Task</button>
                 </div>
-                    {days.map((day) => (
-                        <div key={day} className="calendar">
-                            {/* {day} */}
-                            <button key={day} onClick={() => openPopup(day)}>{day}</button>
-                        </div>
+         {days.map((day) => {
+            const dateKey = `${year}-${month + 1}-${day}`;
+            const tasksForDay = tasks[dateKey] || [];
 
-                    ))}
-                    {days.map((day) => (
-                        <div class="popup" id={day}>
-                            <p>To Do List: {dayNames[dayOfWeek]}, {currentMonthName} {day}</p>
-                            {/* Added the add task button in here instead */}
-                            <button onClick={() => handleAddTaskClick(day)}>Add Task</button>
-                            <button key={day} onClick={() => closePopup(day)}>close</button>
-                        </div>
-                    ))}
+            return (
+              <div
+                key={day}
+                className={day === date.getDate() ? "calendar currentDay" : "calendar"}
+              >
+                <button onClick={() => handleAddTaskClick(day)}>
+                  {day}
+                </button>
+
+                {/* Task preview */}
+                <div className="task-preview-container">
+                  {tasksForDay.map((task, i) => (
+                    <div key={i} className="task-preview">• {task}</div>
+                  ))}
                 </div>
-            </div>
-            {/*I kind of got it to work but i still need to figue out how to set which day to have the tassk on */}
-            {taskPopupDay && (
-                <div className="taskPopup task-open-popup">
-                    <OpenTaskInput
-                        day={taskPopupDay}
-                        month={month}
-                        year={year}
-                        onClose={handleCloseTaskPopup}
-                    />
-                </div>
-            )}
+              </div>
+            );
+          })}
         </div>
-    )
+      </div>
+
+      {/* Task input popup */}
+      {taskPopupDay && (
+        <div className="taskPopup task-open-popup">
+          <OpenTaskInput
+            day={taskPopupDay}
+            month={month}
+            year={year}
+            onClose={handleCloseTaskPopup}
+            onSaveTask={handleSaveTask}
+          />
+        </div>
+      )}
+    </div>
+  );
 }
 
 

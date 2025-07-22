@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import "../components/calendar.css";
 
 
-function OpenTaskInput({day,month,year,onClose}) {
+function OpenTaskInput({day,month,year,onClose,onSaveTask}) {
     const [task, setTask] = useState("");
 
     const handleSubmit = () => {
         if (task.trim()) {
-            console.log(`Task for ${day}/${month + 1}/${year}: ${task}`);
-            setTask("");
-            onClose();
+        onSaveTask(day, month, year, task); // ← save to parent
+        setTask("");
+        onClose();
         }
     };
 
