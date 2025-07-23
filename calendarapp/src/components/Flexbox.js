@@ -49,14 +49,14 @@ function Taskbar() {
         setTaskPopupDay(null);
     };
 
-    const [tasks, setTasks] = useState({}); 
+    const [tasks, setTasks] = useState({});
 
     const handleSaveTask = (day, month, year, newTask) => {
-    const dateKey = `${year}-${month + 1}-${day}`;
-    setTasks((prevTasks) => ({
-        ...prevTasks,
-        [dateKey]: [...(prevTasks[dateKey] || []), newTask],
-    }));
+        const dateKey = `${year}-${month + 1}-${day}`;
+        setTasks((prevTasks) => ({
+            ...prevTasks,
+            [dateKey]: [...(prevTasks[dateKey] || []), newTask],
+        }));
     };
 
     return (
@@ -64,49 +64,50 @@ function Taskbar() {
             <div className="taskBody">
                 <div className="taskbar"></div>
                 <div className="calBody">
-                <div className="whatMonth">
-                    {currentMonthName}
-                    <button type="button" onClick={() => handleAddTaskClick(date.getDate())}>Add A Task</button>
+                    <div className="whatMonth">
+                        {currentMonthName}
+                        <button type="button" onClick={() => handleAddTaskClick(date.getDate())}>Add A Task</button>
+                    </div>
+                    {days.map((day) => {
+                        const dateKey = `${year}-${month + 1}-${day}`;
+                        const tasksForDay = tasks[dateKey] || [];
+
+                        return (
+                            <div
+                                key={day}
+                                id={day}
+                                className={day === date.getDate() ? "calendar currentDay" : "calendar"}
+                            >
+                                <button onClick={() => handleAddTaskClick(day)}>
+                                    {day}
+                                </button>
+
+                                {/* Task preview */}
+                                <div className="task-preview-container">
+                                    {tasksForDay.map((task, i) => (
+                                        <div key={i} className="task-preview">• {task}</div>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-         {days.map((day) => {
-            const dateKey = `${year}-${month + 1}-${day}`;
-            const tasksForDay = tasks[dateKey] || [];
+            </div>
 
-            return (
-              <div
-                key={day}
-                className={day === date.getDate() ? "calendar currentDay" : "calendar"}
-              >
-                <button onClick={() => handleAddTaskClick(day)}>
-                  {day}
-                </button>
-
-                {/* Task preview */}
-                <div className="task-preview-container">
-                  {tasksForDay.map((task, i) => (
-                    <div key={i} className="task-preview">• {task}</div>
-                  ))}
+            {/* Task input popup */}
+            {taskPopupDay && (
+                <div className="taskPopup task-open-popup">
+                    <OpenTaskInput
+                        day={taskPopupDay}
+                        month={month}
+                        year={year}
+                        onClose={handleCloseTaskPopup}
+                        onSaveTask={handleSaveTask}
+                    />
                 </div>
-              </div>
-            );
-          })}
+            )}
         </div>
-      </div>
-
-      {/* Task input popup */}
-      {taskPopupDay && (
-        <div className="taskPopup task-open-popup">
-          <OpenTaskInput
-            day={taskPopupDay}
-            month={month}
-            year={year}
-            onClose={handleCloseTaskPopup}
-            onSaveTask={handleSaveTask}
-          />
-        </div>
-      )}
-    </div>
-  );
+    );
 }
 
 
@@ -117,12 +118,12 @@ function openPopup(id) {
     for (let i = 1; i <= days.length; i++) {
         closePopup(i);
     }
-    popup.classList.add("open-popup");
+    popup.classList.add("task-open-popup");
 }
 
 function closePopup(id) {
     let popup = document.getElementById(id);
-    popup.classList.remove("open-popup");
+    popup.classList.remove("task-open-popup");
 }
 
 export default Taskbar;
