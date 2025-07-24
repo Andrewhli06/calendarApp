@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import "../components/calendar.css";
 
 
-function OpenTaskInput({ day, month, year, onClose, onSaveTask }) {
+function OpenTaskInput({ day, month, year, onClose, onSaveTask, currentTasks,onDeleteTask }) {
     const [task, setTask] = useState("");
 
     const handleSubmit = () => {
         if (task.trim()) {
             onSaveTask(day, month, year, task); // ← save to parent
             setTask("");
-            onClose();
         }
+    };
+
+    const handleDelete = (index) => {
+        onDeleteTask(day, month, year, index);
     };
 
     return (
@@ -25,6 +28,21 @@ function OpenTaskInput({ day, month, year, onClose, onSaveTask }) {
             <br />
             <button onClick={handleSubmit}>Save Task</button>
             <button onClick={onClose}>Cancel</button>
+            {currentTasks.length > 0 ? (
+                <div className="existing-tasks">
+                    <h4>Current Tasks:</h4>
+                    <ul>
+                        {currentTasks.map((t, i) => (
+                            <li key={i} className="task-item">
+                                {t}
+                                <button className="delete-btn" onClick={() => handleDelete(i)}>Delete</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ) : (
+                <p>No tasks yet for this day.</p>
+            )}
         </div>
     );
 }

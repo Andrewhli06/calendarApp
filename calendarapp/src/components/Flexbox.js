@@ -59,6 +59,18 @@ function Taskbar() {
         }));
     };
 
+    const handleDeleteTask = (day, month, year, deleteWhere) => {
+        const dateKey = `${year}-${month + 1}-${day}`;
+        setTasks((prevTasks) => {
+            const updatedTasks = [...(prevTasks[dateKey] || [])];
+            updatedTasks.splice(deleteWhere, 1);
+            return {
+                ...prevTasks,
+                [dateKey]: updatedTasks,
+            };
+        });
+    };
+
     return (
         <div>
             <div className="taskBody">
@@ -79,16 +91,12 @@ function Taskbar() {
                                 className={day === date.getDate() ? "calendar currentDay" : "calendar"}
                             >
                                 <button onClick={() => handleAddTaskClick(day)}>
-                                    {day}
-                                </button>
-
-                                {/* Task preview */}
-                                <div className="task-preview-container">
+                                    <div>{day}</div>
                                     {tasksForDay.map((task, i) => (
-                                        <div key={i} className="task-preview">• {task}</div>
+                                    <div key={i} className="task-preview">• {task}</div>
                                     ))}
+                                </button>
                                 </div>
-                            </div>
                         );
                     })}
                 </div>
@@ -103,6 +111,8 @@ function Taskbar() {
                         year={year}
                         onClose={handleCloseTaskPopup}
                         onSaveTask={handleSaveTask}
+                        currentTasks={tasks[`${year}-${month + 1}-${taskPopupDay}`] || []}
+                        onDeleteTask={handleDeleteTask}
                     />
                 </div>
             )}
