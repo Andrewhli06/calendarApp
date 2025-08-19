@@ -48,6 +48,7 @@
 
 .calendar button:hover {
     background-color: darkgray;
+    cursor: pointer;
 }
 
 .popup {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../components/Taskbar.css";
 import "../components/calendar.css";
+import MonthDropDown from "../components/MonthDropDown/MonthDropDown.js";
 import OpenTaskInput from "../components/Addtask.js";
 
 const date = new Date();
@@ -77,7 +78,8 @@ function Taskbar() {
                 <div className="taskbar"></div>
                 <div className="calBody">
                     <div className="whatMonth">
-                        {currentMonthName}
+                        <MonthDropDown
+                        buttonText= {currentMonthName} content={<p>Hello World</p>} />
                         <button type="button" onClick={() => handleAddTaskClick(date.getDate())}>Add A Task</button>
                     </div>
                     {days.map((day) => {
