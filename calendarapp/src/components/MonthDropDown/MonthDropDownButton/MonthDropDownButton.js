@@ -1,11 +1,11 @@
 import React from 'react'
-import { FaChevronDown } from 'react-icons/fa'
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import '../MonthDropDownButton/MonthDropDownButton.css'
 
-const MonthDropDownButton = ({children}) => {
+const MonthDropDownButton = ({children,open,toggle}) => {
   return (
-    <div className='dropdown-btn'>{children}
-    <span className="toggle-icon"><FaChevronDown /></span></div>
+    <div onClick={toggle} className={`dropdown-btn ${open ? "button-open" : null}`}>{children}
+    <span className="toggle-icon"> {open ? <FaChevronUp /> : <FaChevronDown />}</span></div>
   )
 }
 

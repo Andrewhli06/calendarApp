@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../components/Taskbar.css";
 import "../components/calendar.css";
 import MonthDropDown from "../components/MonthDropDown/MonthDropDown.js";
+import MonthDropDownItem from "../components/MonthDropDown/MonthDropDownItem/MonthDropDownItem.js";
 import OpenTaskInput from "../components/Addtask.js";
 
 const date = new Date();
@@ -72,6 +73,8 @@ function Taskbar() {
         });
     };
 
+    const [currentDate, setCurrentDate] = useState(new Date());
+
     return (
         <div>
             <div className="taskBody">
@@ -79,7 +82,19 @@ function Taskbar() {
                 <div className="calBody">
                     <div className="whatMonth">
                         <MonthDropDown
-                        buttonText= {currentMonthName} content={<p>Hello World</p>} />
+                        buttonText= {currentMonthName} content={<>
+                        {
+                            monthNames && Object.keys(monthNames).map((key) => (
+                            <MonthDropDownItem 
+                            key={key} 
+                            onClick={() => setCurrentDate(new Date(year, key, 1))}
+                            >
+                            {monthNames[key]}
+                            </MonthDropDownItem>
+                            ))
+                        }
+                        </>}
+                        />
                         <button type="button" onClick={() => handleAddTaskClick(date.getDate())}>Add A Task</button>
                     </div>
                     {days.map((day) => {
