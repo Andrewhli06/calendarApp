@@ -8,6 +8,8 @@ const MonthDropDown = ({buttonText, content}) => {
 
     const [open, setOpen] = useState(false);
     const dropDownRef = useRef();
+    const buttonRef = useRef();
+    const contentRef = useRef();
 
     const toggleDropdown = () => {
         setOpen((open) => !open);
@@ -29,10 +31,10 @@ const MonthDropDown = ({buttonText, content}) => {
 
   return (
     <div className="dropdown" ref={dropDownRef}>
-        <MonthDropDownButton toggle={toggleDropdown} open={open}>
+        <MonthDropDownButton ref={buttonRef} toggle={toggleDropdown} open={open}>
             {buttonText}
         </MonthDropDownButton>
-        <MonthDropDownContent open={open}>
+        <MonthDropDownContent ref={contentRef} open={open}>
             {content}
         </MonthDropDownContent>
     </div>
