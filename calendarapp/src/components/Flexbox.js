@@ -5,9 +5,6 @@ import MonthDropDown from "../components/MonthDropDown/MonthDropDown.js";
 import MonthDropDownItem from "../components/MonthDropDown/MonthDropDownItem/MonthDropDownItem.js";
 import OpenTaskInput from "../components/Addtask.js";
 
-const date = new Date();
-const month = date.getMonth(); // 0-11 (0 = January, 11 = December)
-const year = date.getFullYear();
 const monthNames = {
     0: "January",
     1: "February",
@@ -22,7 +19,6 @@ const monthNames = {
     10: "November",
     11: "December"
 }
-const dayOfWeek = date.getDay();
 const dayNames = {
     0: "Monday",
     1: "Tuesday",
@@ -33,15 +29,11 @@ const dayNames = {
     6: "Sunday"
 }
 
-const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the current month
-
-const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-
-const currentMonthName = monthNames[month];
-
-
 function Taskbar() {
     const [taskPopupDay, setTaskPopupDay] = useState(null);
+    const [currentDate, setCurrentDate] = useState(new Date());
+
+    const today = new Date();
 
     const handleAddTaskClick = (day) => {
         setTaskPopupDay(day);
@@ -52,6 +44,14 @@ function Taskbar() {
     };
 
     const [tasks, setTasks] = useState({});
+
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear();
+    const currentMonthName = monthNames[month];
+
+  // 🔑 days in selected month
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
     const handleSaveTask = (day, month, year, newTask) => {
         const dateKey = `${year}-${month + 1}-${day}`;
@@ -73,8 +73,6 @@ function Taskbar() {
         });
     };
 
-    const [currentDate, setCurrentDate] = useState(new Date());
-
     return (
         <div>
             <div className="taskBody">
@@ -95,17 +93,21 @@ function Taskbar() {
                         }
                         </>}
                         />
-                        <button type="button" onClick={() => handleAddTaskClick(date.getDate())}>Add A Task</button>
+                        <button type="button" onClick={() => handleAddTaskClick(currentDate.getDate())}>Add A Task</button>
                     </div>
                     {days.map((day) => {
                         const dateKey = `${year}-${month + 1}-${day}`;
                         const tasksForDay = tasks[dateKey] || [];
+                        const isToday =
+                            day === today.getDate() &&
+                            month === today.getMonth() &&
+                            year === today.getFullYear();
 
                         return (
                             <div
                                 key={day}
                                 id={day}
-                                className={day === date.getDate() ? "calendar currentDay" : "calendar"}
+                                className={isToday ? "calendar currentDay" : "calendar"}
                             >
                                 <button onClick={() => handleAddTaskClick(day)}>
                                     <div>{day}</div>
@@ -139,18 +141,6 @@ function Taskbar() {
 
 
 // should refactor these two functions into a clickhandler function due to the fact that they are very similar functions
-function openPopup(id) {
-    let popup = document.getElementById(id);
-    // we need to fix this for loop but it does the function i need (close a popup when another one is opened)
-    for (let i = 1; i <= days.length; i++) {
-        closePopup(i);
-    }
-    popup.classList.add("task-open-popup");
-}
 
-function closePopup(id) {
-    let popup = document.getElementById(id);
-    popup.classList.remove("task-open-popup");
-}
 
 export default Taskbar;
